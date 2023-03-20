@@ -12,6 +12,10 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public ProductDto addProduct(ProductDto productDto) {
+        return this.toDto(productRepository.save(this.toEntity(productDto)));
+    }
+
     public ProductDto toDto(Product product) {
         ProductDto productDto = new ProductDto();
         productDto.setProductName(product.getProductName());
