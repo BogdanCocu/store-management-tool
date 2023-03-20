@@ -11,15 +11,21 @@ Can be run locally on http://localhost:8080. Current endpoints:
 * /product/getProductByAppId/{appId} - find product by appId
 * /product/searchProducts/{key} - search products on productName and description
 
-Currently, covers ProductService.java class with tests. Handles exceptions on adding products  and price change, displays logs using slf4j-api.
+Currently, covers ProductService.java class with tests. Handles exceptions on adding products  and price change, displays logs using slf4j-api. Tested with Postman.
 
 # How to install
 * Clone this repository
 * Make sure you have Java and Maven installed and configured on your computer
-* Set up Run Configuration Application, add main class
+* Set up Run Configuration with Maven, add spring-boot:run on Run command
 
-On successful run, console displays the following:
-```
-2023-03-20T20:38:52.373+02:00  INFO 12996 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2023-03-20T20:38:52.387+02:00  INFO 12996 --- [           main] r.i.s.StoreManagementToolApplication     : Started StoreManagementToolApplication in 6.467 seconds (process running for 7.219)
-```
+# Security 
+Added Spring Security with configuration blocking requests for unauthenticated users (401 Unauthorized).
+Added two in-memory users:
+* name: user | password: user | role: USER (**Basic YWRtaW46YWRtaW4=**)
+* name: admin | password: admin | role: ADMIN (**Basic dXNlcjp1c2Vy**)
+
+To authorize requests you need to add the Authorization header to the request, with the value from above (Basic ...)*. 
+These represent the Base64 encoding of the user credentials: *user:user* and *admin:admin*.
+The following endpoints require ADMIN Role, otherwise they will return 403 Forbidden:
+* /product/addProduct 
+* /product/changePrice/{appId}
