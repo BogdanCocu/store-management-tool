@@ -11,9 +11,7 @@ import ro.ing.storemanagementtool.exception.ProductCreationException;
 import ro.ing.storemanagementtool.repository.ProductRepository;
 import ro.ing.storemanagementtool.util.Utils;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +22,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public void addProduct(ProductDto productDto) {
+    public Product addProduct(ProductDto productDto) {
         Product createdProduct = this.toEntity(productDto);
         createdProduct.setAppId(Utils.generateRandomUniqueId());
         if(createdProduct.getProductName().isEmpty() ||
@@ -37,7 +35,9 @@ public class ProductService {
             this.toDto(productRepository.save(createdProduct));
         } catch (DataAccessException e) {
             logger.error("Cannot access database!");
+            return null;
         }
+        return createdProduct;
     }
 
     public void changePriceOfProduct(Long appId, String newPrice) {
