@@ -7,6 +7,9 @@ import ro.ing.storemanagementtool.dto.ProductDto;
 import ro.ing.storemanagementtool.repository.ProductRepository;
 import ro.ing.storemanagementtool.util.Utils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductService {
 
@@ -22,6 +25,7 @@ public class ProductService {
     public void changePriceOfProduct(Long appId, String newPrice) {
         Product product = productRepository.findByAppId(appId);
         product.setPrice(newPrice);
+        productRepository.save(product);
     }
 
     public ProductDto toDto(Product product) {
@@ -40,5 +44,10 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         product.setAppId(productDto.getAppId());
         return product;
+    }
+
+    public List<ProductDto> getAllProducts() {
+        List<Product> productList = productRepository.findAll();
+        return productList.stream().map(this::toDto).collect(Collectors.toList());
     }
 }
