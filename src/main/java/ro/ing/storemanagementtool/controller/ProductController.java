@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ro.ing.storemanagementtool.dto.ProductDto;
 import ro.ing.storemanagementtool.service.ProductService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -15,8 +16,8 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/addProduct")
-    public ProductDto addProduct(@RequestBody ProductDto productDto) {
-        return this.productService.addProduct(productDto);
+    public void addProduct(@RequestBody ProductDto productDto) {
+        this.productService.addProduct(productDto);
     }
 
     @PostMapping("/changePrice/{appId}")
