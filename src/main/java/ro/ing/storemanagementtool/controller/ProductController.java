@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ro.ing.storemanagementtool.dto.ProductDto;
 import ro.ing.storemanagementtool.service.ProductService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -20,5 +22,10 @@ public class ProductController {
     @PostMapping("/changePrice/{appId}")
     public void changePrice(@PathVariable Long appId, @RequestParam String newPrice) {
         this.productService.changePriceOfProduct(appId, newPrice);
+    }
+
+    @GetMapping("/getProducts")
+    public List<ProductDto> getProducts() {
+        return this.productService.getAllProducts();
     }
 }
