@@ -1,9 +1,6 @@
 package ro.ing.storemanagementtool.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Product {
@@ -11,14 +8,22 @@ public class Product {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+    private Long appId;
     private String productName;
-    private long price;
+    private String price;
     private String description;
 
     public Product() {
     }
 
-    public Product(String productName, long price, String description) {
+    public Product(String productName, String price, String description) {
+        this.productName = productName;
+        this.price = price;
+        this.description = description;
+    }
+
+    public Product(Long appId, String productName, String price, String description) {
+        this.appId = appId;
         this.productName = productName;
         this.price = price;
         this.description = description;
@@ -32,6 +37,14 @@ public class Product {
         this.id = id;
     }
 
+    public Long getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -40,11 +53,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public long getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ro.ing.storemanagementtool.domain.Product;
 import ro.ing.storemanagementtool.dto.ProductDto;
 import ro.ing.storemanagementtool.repository.ProductRepository;
+import ro.ing.storemanagementtool.util.Utils;
 
 @Service
 public class ProductService {
@@ -13,7 +14,14 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public ProductDto addProduct(ProductDto productDto) {
-        return this.toDto(productRepository.save(this.toEntity(productDto)));
+        Product createdProduct = this.toEntity(productDto);
+        createdProduct.setAppId(Utils.generateRandomUniqueId());
+        return this.toDto(productRepository.save(createdProduct));
+    }
+
+    public void changePriceOfProduct(Long appId, String newPrice) {
+        Product product = productRepository.findByAppId(appId);
+        product.setPrice(newPrice);
     }
 
     public ProductDto toDto(Product product) {
@@ -21,6 +29,7 @@ public class ProductService {
         productDto.setProductName(product.getProductName());
         productDto.setDescription(product.getDescription());
         productDto.setPrice(product.getPrice());
+        productDto.setAppId(product.getAppId());
         return productDto;
     }
 
@@ -29,6 +38,7 @@ public class ProductService {
         product.setProductName(productDto.getProductName());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
+        product.setAppId(productDto.getAppId());
         return product;
     }
 }

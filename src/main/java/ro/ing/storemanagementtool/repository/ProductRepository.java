@@ -6,5 +6,5 @@ import ro.ing.storemanagementtool.domain.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
+    Product findByAppId(Long appId);
 }

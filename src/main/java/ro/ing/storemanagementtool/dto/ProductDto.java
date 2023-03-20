@@ -1,8 +1,9 @@
 package ro.ing.storemanagementtool.dto;
 
 public class ProductDto {
+    private Long appId;
     private String productName;
-    private long price;
+    private String price;
     private String description;
 
     public String getProductName() {
@@ -13,11 +14,11 @@ public class ProductDto {
         this.productName = productName;
     }
 
-    public long getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -27,5 +28,13 @@ public class ProductDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Long appId) {
+        this.appId = appId;
     }
 }

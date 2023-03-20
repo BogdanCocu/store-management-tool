@@ -16,4 +16,9 @@ public class ProductController {
     public ProductDto addProduct(@RequestBody ProductDto productDto) {
         return this.productService.addProduct(productDto);
     }
+
+    @PostMapping("/changePrice/{appId}")
+    public void changePrice(@PathVariable Long appId, @RequestParam String newPrice) {
+        this.productService.changePriceOfProduct(appId, newPrice);
+    }
 }
