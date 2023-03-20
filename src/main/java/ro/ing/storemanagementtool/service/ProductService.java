@@ -50,4 +50,13 @@ public class ProductService {
         List<Product> productList = productRepository.findAll();
         return productList.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    public ProductDto getProductByAppId(Long appId) {
+        return this.toDto(productRepository.findByAppId(appId));
+    }
+
+    public List<ProductDto> searchProductByNameOrDescription(String key) {
+        List<Product> productList = productRepository.findAllByProductNameContainingOrDescriptionContaining(key, key);
+        return productList.stream().map(this::toDto).collect(Collectors.toList());
+    }
 }

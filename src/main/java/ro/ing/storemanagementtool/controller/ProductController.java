@@ -28,4 +28,14 @@ public class ProductController {
     public List<ProductDto> getProducts() {
         return this.productService.getAllProducts();
     }
+
+    @GetMapping("/getProductByAppId/{appId}")
+    public ProductDto getProductByAppId(@PathVariable Long appId) {
+        return this.productService.getProductByAppId(appId);
+    }
+
+    @GetMapping("/searchProducts/{key}")
+    public List<ProductDto> searchProducts(@PathVariable String key) {
+        return this.productService.searchProductByNameOrDescription(key);
+    }
 }
